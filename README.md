@@ -3,7 +3,7 @@
 </div>
 
 
-# C4PR4
+# Capra
 
 ## Description
 
@@ -45,7 +45,7 @@ A collection of penetration testing tools.
   - Clone
 
   ```shell
-  git clone https://github.com/KleoHasani/capra.git
+  git clone https://github.com/KleoHasani/Capra.git
   ```
 
   - VENV

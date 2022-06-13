@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "capra"
 version = "0.0.1"
-description = "A collection of penetration testing tools."
+description = "A collection of penetration testing tools under one roof."
 authors = ["Kleo Hasani"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/kleohasani/capra"
-repository = "https://github.com/kleohasani/capra"
-documentation = "https://github.com/kleohasani/capra#readme"
+homepage = "https://github.com/kleohasani/Capra"
+repository = "https://github.com/kleohasani/Capra"
+documentation = "https://github.com/kleohasani/Capra#readme"
 keywords = ["Scanner", "Enumeration", "C2"]
 classifiers = [
     "Topic :: System :: Networking",
@@ -17,7 +17,7 @@ packages = [
 ]
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/kleohasani/capra/issues"
+"Bug Tracker" = "https://github.com/kleohasani/Capra/issues"
 
 [tool.poetry.build]
 generate-setup-file = false
