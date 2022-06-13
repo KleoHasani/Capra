@@ -1,0 +1,56 @@
+[tool.poetry]
+name = "capra"
+version = "0.0.1"
+description = "A collection of penetration testing tools."
+authors = ["Kleo Hasani"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/kleohasani/capra"
+repository = "https://github.com/kleohasani/capra"
+documentation = "https://github.com/kleohasani/capra#readme"
+keywords = ["Scanner", "Enumeration", "C2"]
+classifiers = [
+    "Topic :: System :: Networking",
+]
+packages = [
+    { include = "src" },
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/kleohasani/capra/issues"
+
+[tool.poetry.build]
+generate-setup-file = false
+
+[tool.poetry.scripts]
+start = "src.capra.cli:bootstrap"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+black = "^22.3.0"
+flake8 = "^4.0.1"
+pre-commit = "^2.19.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
