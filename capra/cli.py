@@ -1,16 +1,26 @@
-from capra.Application import Application, InvalidInputException
-from capra.globals import OutType
-from capra.io import output, done
+from capra.Application import Application, InputException
+from capra.IO import IOException
+from capra.Log import Log
+from capra.helpers.globals import OutType
+from capra.helpers.printer import output, done
 
 
 def bootstrap() -> None:
     try:
+        logger: Log = Log()
         app: Application = Application()
         app.start()
-    except InvalidInputException as ix:
-        output(ix, OutType.ERROR)
+
+    except InputException as ix:
+        output(ix)
+
+    except IOException as iox:
+        output(iox, OutType.ERROR)
+        logger.write(iox)
+
     except Exception as ex:
-        output(ex)
+        output(ex, OutType.ERROR)
+        logger.write(ex)
 
     done()
     pass

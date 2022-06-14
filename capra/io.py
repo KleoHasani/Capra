@@ -1,50 +1,66 @@
-from termcolor import colored
-from capra.globals import OutType, CWP
+from os import remove
+from os.path import exists
+from json import load, dump
 
 
-def banner() -> None:
-    title = """
-     ▄████▄   ▄▄▄       ██▓███   ██▀███   ▄▄▄      
-    ▒██▀ ▀█  ▒████▄    ▓██░  ██▒▓██ ▒ ██▒▒████▄    
-    ▒▓█    ▄ ▒██  ▀█▄  ▓██░ ██▓▒▓██ ░▄█ ▒▒██  ▀█▄  
-    ▒▓▓▄ ▄██▒░██▄▄▄▄██ ▒██▄█▓▒ ▒▒██▀▀█▄  ░██▄▄▄▄██ 
-    ▒ ▓███▀ ░ ▓█   ▓██▒▒██▒ ░  ░░██▓ ▒██▒ ▓█   ▓██▒
-    ░ ░▒ ▒  ░ ▒▒   ▓▒█░▒▓▒░ ░  ░░ ▒▓ ░▒▓░ ▒▒   ▓▒█░
-    ░  ▒     ▒   ▒▒ ░░▒ ░       ░▒ ░ ▒░  ▒   ▒▒ ░
-    ░          ░   ▒   ░░         ░░   ░   ░   ▒   
-    ░ ░            ░  ░            ░           ░  ░
-    ░                                              
-    """
-    author = "Made with 💖 by Kleo Hasani"
-    github = "https://github.com/KleoHasani/Capra"
-
-    print(colored(title, color="red"))
-    print(f'{" " * 12}{colored(author, color="blue")}\n')
-    print(f'{colored("GitHub", color="yellow")} \t›\t{github}\n')
-
-    pass
+class IOFileException(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
 
 
-def cinput(chr: str = "λ ") -> str:
-    print(f'╭─[{colored(CWP, color="blue")}]')
-    return input(f'╰─{colored(chr, color="green")}')
+class IOException(Exception):
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
 
 
-def output(msg: str, type: OutType = OutType.WARNING) -> None:
-    print("\n", colored(f"[{type.name}]", color=type.value), msg, "\n")
-    pass
+class IO:
+    def __init__(self, path: str) -> None:
+        self._path: str = path
+        pass
 
+    def _read(self) -> str:
+        try:
+            # Ensure config file exists.
+            if not exists(self._path):
+                raise IOFileException("File does not exist.")
 
-def done(msg: str = "") -> None:
-    print(
-        f'\n{colored("[Done]", color="green")}\t {colored(msg, color="yellow")}\n'
-    )
-    pass
+            # Load config file.
+            with open(self._path, "r") as file:
+                return file.read()
+        except Exception as ex:
+            raise IOException(f"Unable to read file '{ex}'")
 
+    def _write(self, data: str, mode: str = "w") -> None:
+        try:
+            # Write data to file.
+            with open(self._path, mode) as file:
+                file.write(data)
+        except Exception as ex:
+            raise IOException(f"Unable to write file '{ex}'")
 
-def menu(title: str, options: dict[str, str]) -> None:
-    print("\n\n", colored(title, color="cyan"), "\n")
-    for opt, msg in options.items():
-        print(colored(opt, color="green"), "\t", msg)
-    print("\n")
-    pass
+        pass
+
+    def _jread(self) -> dict[str, str | int]:
+        # Ensure config file exists.
+        if not exists(self._path):
+            raise IOFileException("JSON file does not exist.")
+
+        # Load config file.
+        with open(self._path, "r") as file:
+            return load(file)
+
+    def _jwrite(self, data: dict[str, str | int]) -> None:
+        try:
+            # Write data to file.
+            with open(self._path, "w") as file:
+                dump(data, file)
+        except Exception as ex:
+            raise IOException(f"Unable to write JSON file '{ex}'")
+
+        pass
+
+    def delete(self) -> None:
+        try:
+            remove(self._path)
+        except Exception as ex:
+            raise IOException(f"Unable to delete file '{ex}'")

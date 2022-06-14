@@ -1,15 +1,18 @@
 import os
-from capra.globals import HELP_MENU
-from capra.io import banner, menu, cinput
+from capra.Config import Config
+from capra.helpers.globals import HELP_MENU
+from capra.helpers.printer import banner, menu, cinput
 
 
-class InvalidInputException(Exception):
+class InputException(Exception):
     def __init__(self, *args: object) -> None:
         super().__init__(*args)
 
 
 class Application:
     def __init__(self) -> None:
+        self.config: Config = Config()
+        self.config.load()
         banner()
         pass
 
@@ -35,5 +38,5 @@ class Application:
                 pass
 
             else:
-                raise InvalidInputException(f"Invalid input '{inp}'")
+                raise InputException(f"Invalid input '{inp}'")
         pass
