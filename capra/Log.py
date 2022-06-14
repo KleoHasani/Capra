@@ -1,9 +1,9 @@
-from capra.IO import IO
+from capra.IOOperations import IOOperations
 from capra.helpers.globals import LOG_PATH
 from time import strftime, localtime, time as ctime
 
 
-class Log(IO):
+class Log(IOOperations):
     def __init__(self) -> None:
         super().__init__(LOG_PATH)
 

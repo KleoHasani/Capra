@@ -13,7 +13,7 @@ class IOException(Exception):
         super().__init__(*args)
 
 
-class IO:
+class IOOperations:
     def __init__(self, path: str) -> None:
         self._path: str = path
         pass

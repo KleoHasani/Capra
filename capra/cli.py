@@ -1,5 +1,5 @@
 from capra.Application import Application, InputException
-from capra.IO import IOException
+from capra.IOOperations import IOException
 from capra.Log import Log
 from capra.helpers.globals import OutType
 from capra.helpers.printer import output, done

@@ -1,8 +1,8 @@
-from capra.IO import IO, IOFileException
+from capra.IOOperations import IOOperations, IOFileException
 from capra.helpers.globals import CONFIG_PATH
 
 
-class Config(IO):
+class Config(IOOperations):
     def __init__(self) -> None:
         super().__init__(CONFIG_PATH)
         self._config: dict[str, str | int] = {
